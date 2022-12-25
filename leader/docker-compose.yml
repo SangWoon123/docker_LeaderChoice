@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+  con25:
+    build:
+      context: .
+      dockerfile: ./con25/Dockerfile
+    container_name: con_25
+    volumes:
+      - ./con25:/con25
+    ports:
+      - 5000:5000
+
+  con11:
+    build:
+      context: .
+      dockerfile: ./con11/Dockerfile
+    container_name: con_11
+    volumes:
+      - ./con11:/con11
+    depends_on:
+      - con25
+    ports:
+      - 5001:5001
+
+  con99:
+      build:
+        context: .
+        dockerfile: ./con99/Dockerfile
+      container_name: con_99
+      volumes:
+        - ./con99:/con99
+      depends_on:
+        - con11
+      ports:
+        - 5002:5002
+
+  con132:
+    build:
+      context: .
+      dockerfile: ./con132/Dockerfile
+    container_name: con_132
+    volumes:
+      - ./con132:/con132
+    depends_on:
+      - con99
+    ports:
+      - 5003:5003
+
+  con232:
+    build:
+      context: .
+      dockerfile: ./con232/Dockerfile
+    container_name: con_232
+    volumes:
+      - ./con232:/con232
+    depends_on:
+      - con132
+    ports:
+      - 5004:5004
+
+  con54:
+      build:
+        context: .
+        dockerfile: ./con54/Dockerfile
+      container_name: con_54
+      volumes:
+        - ./con54:/con54
+      depends_on:
+        - con232
+      ports:
+        - 5005:5005
